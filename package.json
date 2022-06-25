@@ -1,5 +1,5 @@
 {
-  "name": "@glennsl/rescript-jest",
+  "name": "@lgrier/rescript-jest",
   "version": "0.9.1",
   "description": "Rescript bindings to the Jest testing framework",
   "author": "glennsl",
