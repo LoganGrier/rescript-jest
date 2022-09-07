@@ -3,7 +3,7 @@
 [ReScript](https://github.com/rescript-lang) bindings for [Jest](https://github.com/facebook/jest)
 
 [![npm](https://img.shields.io/npm/v/@awebyte/rescript-jest.svg)](https://npmjs.org/@awebyte/rescript-jest)
-[![CI](https://github.com/LoganGrer/rescript-jest/actions/workflows/main.yml/badge.svg)](https://github.com/LoganGrier/rescript-jest/actions/workflows/main.yml)
+[![CI](https://github.com/LoganGrer/rescript-jest/actions/workflows/test-ci.yml/badge.svg)](https://github.com/LoganGrier/rescript-jest/actions/workflows/test-ci.yml)
 [![Issues](https://img.shields.io/github/issues/LoganGrier/rescript-jest.svg)](https://github.com/LoganGrier/rescript-jest/issues)
 [![Last Commit](https://img.shields.io/github/last-commit/LoganGrier/rescript-jest.svg)](https://github.com/LoganGrier/rescript-jest/commits/master)
 
