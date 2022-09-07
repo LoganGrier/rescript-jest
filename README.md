@@ -12,7 +12,6 @@
 
 ## Status
 
-### Rescript-jest
 - bs-jest is rebranded as rescript-jest
 - rescript-jest depends on Rescript 9.1.4, Jest 27.3.1 and @ryyppy/rescript-promise 2.1.0.
 - Starting from Jest 27.0.0 jest-jasmine was replaced by jest-circus changing the semantics for before and after hooks.  `afterAllAsync` and `afterAllPromise` hooks now time-out consistent with the behavior of `beforeAllAsync` and `beforeAllPromise` in version 0.7.0 of bs-jest.  `beforeAllAsync` and `beforeAllPromise` also now behave consistently with '`afterAllAsync` and `afterAllPromise` when included in skipped test suites.
@@ -32,6 +31,7 @@ To generate ES6 bindings for your project, update bsconfig.json
     "in-source": true
   },
 ```
+
 Then add `@babel/core`, `@babel/preset-env` and `babel-jest` packages to your project.  Also, add babel.config.js
 
 ```js
@@ -106,9 +106,9 @@ See [the tests](https://github.com/glennsl/rescript-jest/tree/master/__tests__) 
 npm install --save-dev @glennsl/rescript-jest
 ```
 
-or 
+or
 
-```
+```sh
 yarn install --save-dev @glennsl/rescript-jest
 ```
 
@@ -161,15 +161,18 @@ For the moment, please refer to [Jest.resi](https://github.com/glennsl/rescript-
 
 If you encounter the error `SyntaxError: Cannot use import statement outside a module`, it may be that you are mixing `es6` and `commonjs` modules in your project. For example, this can happen when you are building a React project since React builds are always in ES6. To fix this, please do the following:
 
-  - Make sure your `bsconfig.json` compiles `"es6"` or `"es6-global"`:
+- Make sure your `bsconfig.json` compiles `"es6"` or `"es6-global"`:
+
   ```json
     "package-specs": {
       "module": "es6",
     }
   ```
-  - Install [esbuild-jest](https://github.com/aelbore/esbuild-jest) through `yarn` or `npm` as a `devDependency`.
-  - Build your Rescript project with deps: `rescript build -with-deps`.
-  - Add this to your Jest config (or `jest` of your `package.json`):
+
+- Install [esbuild-jest](https://github.com/aelbore/esbuild-jest) through `yarn` or `npm` as a `devDependency`.
+- Build your Rescript project with deps: `rescript build -with-deps`.
+- Add this to your Jest config (or `jest` of your `package.json`):
+
   ```json
   {
     "transform": {
@@ -178,7 +181,8 @@ If you encounter the error `SyntaxError: Cannot use import statement outside a m
     "transformIgnorePatterns": ["<rootDir>/node_modules/(?!(rescript|@glennsl/rescript-jest)/)"]
   }
   ```
-  - The property `"transformIgnorePatterns"` is an array of strings. Either you do some regex or organize them in an array. **Please make sure all folders in `node_modules` involving compiled .res/.ml/.re files and the like such as `rescript` or `@glennsl/rescript-jest` are mentioned in the aforementioned array.**
+
+- The property `"transformIgnorePatterns"` is an array of strings. Either you do some regex or organize them in an array. **Please make sure all folders in `node_modules` involving compiled .res/.ml/.re files and the like such as `rescript` or `@glennsl/rescript-jest` are mentioned in the aforementioned array.**
 
 This problem is also addressed in [Issue #63](https://github.com/glennsl/rescript-jest/issues/63).
 
@@ -195,12 +199,15 @@ Then build and run tests with `npm test`, start watchers for `rescript`and `jest
 ## Changes
 
 ### 0.9.1
+
 - Added `Jest.setSystemTime`.
 
 ### 0.9
+
 - [BREAKING] Removed the unnecessarily verbose generated namespace.
 
 ### 0.8
+
 - Moved repository from `glennsl/rescript-jest` to `glennsl/rescript-jest`
 - Renamed published package to `@glennsl/rescript-jest`
 - [BREAKING] Converted source code to ReScript, hence will no longer work with versions of BuckleScript that lack ReScript support.
