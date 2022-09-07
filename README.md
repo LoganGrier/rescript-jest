@@ -233,6 +233,9 @@ Then build and run tests with `npm test`, start watchers for `rescript` and `jes
 
 ## Changes
 
+### 0.9.2
+- Added `testAllPromise`.
+
 ### 0.9.1
 
 - Added `Jest.setSystemTime`.
