@@ -2,13 +2,30 @@
 
 [ReScript](https://github.com/rescript-lang) bindings for [Jest](https://github.com/facebook/jest)
 
-[![npm](https://img.shields.io/npm/v/@glennsl/rescript-jest.svg)](https://npmjs.org/@glennsl/rescript-jest)
-[![Travis](https://img.shields.io/travis/glennsl/rescript-jest/master.svg)](https://travis-ci.org/glennsl/rescript-jest)
-[![Coverage](https://img.shields.io/coveralls/glennsl/rescript-jest/master.svg)](https://coveralls.io/github/glennsl/rescript-jest?branch=master)
-[![Issues](https://img.shields.io/github/issues/glennsl/rescript-jest.svg)](https://github.com/glennsl/rescript-jest/issues)
-[![Last Commit](https://img.shields.io/github/last-commit/glennsl/rescript-jest.svg)](https://github.com/glennsl/rescript-jest/commits/master)
+[![npm](https://img.shields.io/npm/v/@awebyte/rescript-jest.svg)](https://npmjs.org/@awebyte/rescript-jest)
+[![CI](https://github.com/LoganGrer/rescript-jest/actions/workflows/main.yml/badge.svg)](https://github.com/LoganGrier/rescript-jest/actions/workflows/main.yml)
+[![Issues](https://img.shields.io/github/issues/LoganGrier/rescript-jest.svg)](https://github.com/LoganGrier/rescript-jest/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/LoganGrier/rescript-jest.svg)](https://github.com/LoganGrier/rescript-jest/commits/master)
 
-**NOTE:** The _NPM package has moved to `@glennsl/rescript-jest`. Remember to update both `package.json` AND `bsconfig.json`._
+## @awebyte/rescript-jest vs @glennsl/rescript-jest
+
+This library is a fork of [@glennsl/rescript-jest](https://github.com/glennsl/rescript-jest). The only difference between this library and @glennsl/rescript-jest is that this library exposes the _affirm_ function while @glennsl/rescript-jest does not.
+
+To reduce maintenance costs, this library aims to be as similar as possible to @glennsl/rescript-jest while still exposing affirm.
+
+### What is affirm?
+
+All rescript-jest tests take a parameter _() => assertion_ or _() => Promise.t\<assertion>_, run the parameter, and call affirm on the result. Since @glennsl/rescript-jest does not publicly expose affirm, it ensures that all tests have **exactly one** assertion. By exposing affirm, @awebyte/rescript-jest relaxes this constraint so that all tests have **at least one** assertion.
+
+### Motivation
+
+This fork was motivated by the desire to use property-based testing frameworks like [fast-check](https://github.com/TheSpyder/rescript-fast-check) where a single test needs to runs an assertion for each of a large number of inputs. This change was proposed and rejected in [@glennsl/rescript-jest issue #109](https://github.com/glennsl/rescript-jest/issues/109).
+
+## Migrating from @glennsl/rescript-jest
+
+This library uses the same version numbers as @glennsl/rescript-jest. Since this library only adds _affirm_, any code which works with version X of @glennsl/rescript-jest will also work with version X of @awebyte/rescript-jest.
+
+To migrate, simply replace _@glennsl/rescript-jest_ with _@awebyte/rescript-jest_ in your bsconfig.json and package.json files, and reinstall your dependencies.
 
 ## Status
 
@@ -25,7 +42,7 @@
 To generate ES6 bindings for your project, update bsconfig.json
 
 ```js
-    "suffix": ".mjs",
+  "suffix": ".mjs",
   "package-specs": {
     "module": "ES6",
     "in-source": true
@@ -65,7 +82,7 @@ testMatch: [
   ],    
 ```
 
-Update testMatch, transform and transformIgnorePatterns settings depending on where your tests are stored, and other dependenies of your project that may need to be transformed to ES6 format.
+Update testMatch, transform and transformIgnorePatterns settings depending on where your tests are stored, and other dependencies of your project that may need to be transformed to ES6 format.
 
 Most of what's commonly used is very stable. But the more js-y parts should be considered experimental, such as mocking and some of the expects that don't transfer well, or just don't make sense for testing idiomatic Reason/OCaml code but could be useful for testing js interop.
 
@@ -98,26 +115,26 @@ describe("Expect.Operators", () => {
 
 ```
 
-See [the tests](https://github.com/glennsl/rescript-jest/tree/master/__tests__) for more examples.
+See [the tests](https://github.com/LoganGrier/rescript-jest/tree/master/__tests__) for more examples.
 
 ## Installation
 
 ```sh
-npm install --save-dev @glennsl/rescript-jest
+npm install --save-dev @awebyte/rescript-jest
 ```
 
 or
 
 ```sh
-yarn install --save-dev @glennsl/rescript-jest
+yarn install --save-dev @awebyte/rescript-jest
 ```
 
-Then add `@glennsl/rescript-jest` to `bs-dev-dependencies` in your `bsconfig.json`:
+Then add `@awebyte/rescript-jest` to `bs-dev-dependencies` in your `bsconfig.json`:
 
 ```js
 {
   ...
-  "bs-dev-dependencies": ["@glennsl/rescript-jest"]
+  "bs-dev-dependencies": ["@awebyte/rescript-jest"]
 }
 ```
 
@@ -151,7 +168,7 @@ At first sight this may still seem very limiting, and if you write very imperati
 
 ## Documentation
 
-For the moment, please refer to [Jest.resi](https://github.com/glennsl/rescript-jest/blob/master/src/jest.resi).
+For the moment, please refer to [Jest.resi](https://github.com/LoganGrier/rescript-jest/blob/master/src/jest.resi).
 
 ## Extensions
 
@@ -178,15 +195,33 @@ If you encounter the error `SyntaxError: Cannot use import statement outside a m
     "transform": {
       "^.+\\.jsx?$": "esbuild-jest"
     },
-    "transformIgnorePatterns": ["<rootDir>/node_modules/(?!(rescript|@glennsl/rescript-jest)/)"]
+    "transformIgnorePatterns": ["<rootDir>/node_modules/(?!(rescript|@awebyte/rescript-jest)/)"]
   }
   ```
 
-- The property `"transformIgnorePatterns"` is an array of strings. Either you do some regex or organize them in an array. **Please make sure all folders in `node_modules` involving compiled .res/.ml/.re files and the like such as `rescript` or `@glennsl/rescript-jest` are mentioned in the aforementioned array.**
+- The property `"transformIgnorePatterns"` is an array of strings. Either you do some regex or organize them in an array. **Please make sure all folders in `node_modules` involving compiled .res/.ml/.re files and the like such as `rescript` or `@awebyte/rescript-jest` are mentioned in the aforementioned array.**
 
-This problem is also addressed in [Issue #63](https://github.com/glennsl/rescript-jest/issues/63).
+This problem is also addressed in [glennsl Issue #63](https://github.com/glennsl/rescript-jest/issues/63).
 
 ## Contribute
+
+### Minimizing the differences between this project and @glennsl/rescript-jest
+
+All contributors must first submit a PR to **@glennsl**/rescript-jest, and then, once this PR is merged, submit a PR to @awebyte/rescript-jest that merges in the master branch of @glennsl/rescript-jest.
+
+#### PRs rejected by @glennsl/rescript-jest
+
+If a PR is rejected by @glennsl/rescript-jest, you may submit it to @awebyte/rescript-jest. All such PRs must include a link to the original @glennsl/rescript-jest PR. All PRs rejected by @glennsl/rescript-jest that don't contain a functional change, or which change the formatting of code that isn't functionally changed will be rejected by @awebyte/rescript-jest.
+
+If a @glennsl/rescript-jest PR is open, all feedback provided by @glennsl/rescript-jest maintainers as been addressed, and its been at least 60 days since the last response to this feedback, the PR is deemed to be rejected.
+
+#### Rationale
+
+Most rescript-jest users use @glennsl/rescript-jest instead of this library. Because of this, @glennsl/rescript-jest is expected to receive most of the development, and most of @awebyte/rescript-jest's PRs are expected to merge features developed by @glennsl/rescript-jest users.
+
+This policy minimizes the diff between @glennsl/rescript-jest and this project. This minimizes the labour required to merge @glennsl/rescript-jest into this project.
+
+### Clone, install, and test
 
 ```sh
 git clone https://github.com/glennsl/rescript-jest.git
@@ -194,7 +229,7 @@ cd rescript-jest
 npm install
 ```
 
-Then build and run tests with `npm test`, start watchers for `rescript`and `jest` with `npm run watch:rescript` and `npm run watch:jest` respectively. Install `screen` to be able to use `npm run watch:screen` to run both watchers in a single terminal window.
+Then build and run tests with `npm test`, start watchers for `rescript` and `jest` with `npm run watch:rescript` and `npm run watch:jest` respectively. Install `screen` to be able to use `npm run watch:screen` to run both watchers in a single terminal window.
 
 ## Changes
 
@@ -212,7 +247,7 @@ Then build and run tests with `npm test`, start watchers for `rescript`and `jest
 - Renamed published package to `@glennsl/rescript-jest`
 - [BREAKING] Converted source code to ReScript, hence will no longer work with versions of BuckleScript that lack ReScript support.
 - [BREAKING] As of Jest 27.0.0, Jest-Circus replaces Jest-Jasmine by default leading to change in behavior of async and Promise before and after hooks. 
-- [BREAKING] As the `|>` operator is deprecated in Recript 9.x, all APIs now use data-first (`->`) semantics.
+- [BREAKING] As the `|>` operator is deprecated in ReScript 9.x, all APIs now use data-first (`->`) semantics.
 
 ### 0.7
 
