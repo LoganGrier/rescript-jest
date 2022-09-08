@@ -1,6 +1,6 @@
 {
   "name": "@awebyte/rescript-jest",
-  "version": "0.9.2",
+  "version": "0.9.2-test",
   "description": "Rescript bindings to the Jest testing framework",
   "author": "Awebyte",
   "license": "MIT",
