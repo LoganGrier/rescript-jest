@@ -212,7 +212,7 @@ All contributors must first submit a PR to **@glennsl**/rescript-jest, and then,
 
 If a PR is rejected by @glennsl/rescript-jest, you may submit it to @awebyte/rescript-jest. All such PRs must include a link to the original @glennsl/rescript-jest PR. All PRs rejected by @glennsl/rescript-jest that don't contain a functional change, or which change the formatting of code that isn't functionally changed will be rejected by @awebyte/rescript-jest.
 
-If a @glennsl/rescript-jest PR is open, all feedback provided by @glennsl/rescript-jest maintainers as been addressed, and its been at least 60 days since the last response to this feedback, the PR is deemed to be rejected.
+If a @glennsl/rescript-jest PR is open, all feedback provided by @glennsl/rescript-jest maintainers has been addressed, and its been at least 60 days since the last response to this feedback, the PR is deemed to be rejected.
 
 #### Rationale
 
