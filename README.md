@@ -21,6 +21,15 @@ All rescript-jest tests take a parameter _() => assertion_ or _() => Promise.t\<
 
 This fork was motivated by the desire to use property-based testing frameworks like [fast-check](https://github.com/TheSpyder/rescript-fast-check) where a single test needs to runs an assertion for each of a large number of inputs. This change was proposed and rejected in [@glennsl/rescript-jest issue #109](https://github.com/glennsl/rescript-jest/issues/109).
 
+### Don't Overuse Affirm
+
+While exposing affirm gives you more flexibility, it also makes it easier to write tests that are hard to understand, debug, and refactor. Before using affirm, see if you can avoid it by using one of these techniques:
+
+- Compare multiple values by wrapping them in a tuple: `expect((this, that)) -> toBe((3, 4))`.
+- Use the `testAll` function to generate tests based on a list of data.
+- Use `describe` and/or `beforeAll` to do setup for a group of tests.
+- Write a helper function if you find yourself repeating code. You can even write a helper function to generate tests.
+
 ## Migrating from @glennsl/rescript-jest
 
 This library uses the same version numbers as @glennsl/rescript-jest. Since this library only adds _affirm_, any code which works with version X of @glennsl/rescript-jest will also work with version X of @awebyte/rescript-jest.
@@ -155,16 +164,6 @@ Then add `__tests__` to `sources` in your `bsconfig.json`:
 ## Usage
 
 Put tests in a `__tests__` directory and use the suffix `*test.res`/ (Make sure to use valid module names. e.g. `<name>_test.res` is valid while `<name>.test.res` is not). When compiled they will be put in a `__tests__` directory under `lib`, with a `*test.bs.js` suffix, ready to be picked up when you run `jest`. If you're not already familiar with [Jest](https://github.com/facebook/jest), see [the Jest documentation](https://facebook.github.io/jest/).
-
-One very important difference from Jest is that assertions are not imperative. That is, `expect(1 + 2) -> toBe(3)`, for example, will not "execute" the assertion then and there. It will instead return an `assertion` value which must be returned from the test function. Only after the test function has completed will the returned assertion be checked. Any other assertions will be ignored, but unless you explicitly ignore them, it will produce compiler warnings about unused values. **This means there can be at most one assertion per test**. But it also means there must be at least one assertion per test. You can't forget an assertion in a branch, and think the test passes when in fact it doesn't even test anything. It will also force you to write simple tests that are easy to understand and refactor, and will give you more information about what's wrong when something does go wrong.
-
-At first sight this may still seem very limiting, and if you write very imperative code it really is, but I'd argue the real problem then is the imperative code. There are however some workarounds that can alleviate this:
-
-- Compare multiple values by wrapping them in a tuple: `expect((this, that)) -> toBe((3, 4))`
-- Use the `testAll` function to generate tests based on a list of data
-- Use `describe` and/or `beforeAll` to do setup for a group of tests. Code written in Rescript is immutable by default. Take advantage of it.
-- Write a helper function if you find yourself repeating code. That's what functions are for, after all. You can even write a helper function to generate tests.
-- If you're still struggling, make an issue on GitHub or bring it up in Discord. We'll either figure out a good way to do it with what we already have, or realize that something actually is missing and add it.
 
 ## Documentation
 
