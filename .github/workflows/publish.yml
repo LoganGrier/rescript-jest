@@ -4,7 +4,9 @@ on:
     types: [created]
 jobs:
   build:
-    runs-on: debian-11.4
+    # GitHub Actions seems to have a bug where jobs that use images other than ubuntu-latest
+    # get stuck in the "queued" state
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       # Setup .npmrc file to publish to npm
@@ -13,6 +15,7 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
+      - run: npm run test-ci
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,3 +1,4 @@
+name: test-ci
 on:
   workflow_dispatch:
   push:
@@ -5,8 +6,6 @@ on:
 
 permissions:
   contents: read
-  # Needed for the 'trilom/file-changes-action' action
-  pull-requests: read
 
 # This allows a subsequently queued workflow run to interrupt previous runs
 concurrency:
@@ -15,7 +14,9 @@ concurrency:
 
 jobs:
   test-ci:
-    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    # GitHub Actions seems to have a bug where jobs that use images other than ubuntu-latest
+    # get stuck in the "queued" state
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
