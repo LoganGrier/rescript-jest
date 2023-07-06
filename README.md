@@ -232,6 +232,10 @@ Then build and run tests with `npm test`, start watchers for `rescript` and `jes
 
 ## Changes
 
+### 0.10
+- [BREAKING] Bump required rescript to 10.1.x
+- Remove unnecessary dependency on `@ryyppy/rescript-promise`
+
 ### 0.9.2
 - Added `testAllPromise`.
 
@@ -244,8 +248,7 @@ Then build and run tests with `npm test`, start watchers for `rescript` and `jes
 - [BREAKING] Removed the unnecessarily verbose generated namespace.
 
 ### 0.8
-
-- Moved repository from `glennsl/rescript-jest` to `glennsl/rescript-jest`
+- Moved repository from `glennsl/bs-jest` to `glennsl/rescript-jest`
 - Renamed published package to `@glennsl/rescript-jest`
 - [BREAKING] Converted source code to ReScript, hence will no longer work with versions of BuckleScript that lack ReScript support.
 - [BREAKING] As of Jest 27.0.0, Jest-Circus replaces Jest-Jasmine by default leading to change in behavior of async and Promise before and after hooks. 
